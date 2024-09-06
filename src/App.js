@@ -3,6 +3,9 @@ import { useState } from 'react'
 import 'remixicon/fonts/remixicon.css'
 import "./App.css"
 import Swal from 'sweetalert2'
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const App=()=>{
 
   const model ={
@@ -16,10 +19,13 @@ const App=()=>{
 
   }
 
-  const [editindex,setEditIndex] = useState(null)
-  const [right,setRight] = useState(-389)
-  const [student,setStudent]= useState([])
-  const [form,setForm] =useState(model)
+  const [editindex,setEditIndex] = useState(null);
+  const [right,setRight] = useState(-389);
+  const [student,setStudent]= useState([]);
+  const [form,setForm] =useState(model);
+  const [show, setShow] = useState(null);
+  const [openModels, setopenModels] = useState(null);
+
 
   const asiderShow=()=>{
     if(right === -389){
@@ -63,10 +69,11 @@ const App=()=>{
       });
   }
 
-const studentdelete=(index)=>{
+const studentdelete=()=>{
   const copyarry = [...student]
-  copyarry.splice(index,1)
+  copyarry.splice(show,1)
   setStudent(copyarry)
+  setopenModels(null)
   Swal.fire({
     title: "Success!",
     text: " Student Delete Successfully !",
@@ -97,6 +104,12 @@ const updateStudent=(e)=>{
 }
 
 
+const handleClose = () => setopenModels(null);
+const handleShow = (index) => {
+  setShow(index); 
+  setopenModels(index+1)
+
+}
  return(
 
   <div  style={{ 
@@ -170,7 +183,7 @@ const updateStudent=(e)=>{
             marginRight:12
            }}><i className="ri-edit-box-line"></i></button>
 
-          <button 
+          {/* <button 
           onClick={()=>studentdelete(index)}
            style={{ 
             border:"none",
@@ -179,9 +192,20 @@ const updateStudent=(e)=>{
             background:"red",
             color:"#fff",
             borderRadius:5,
-           }}><i className="ri-delete-bin-line"></i></button>
+           }}><i className="ri-delete-bin-line"></i></button> */}
 
-
+        <button 
+         style={{ 
+          border:"none",
+          width:32,
+          height:32,
+          background:"red",
+          color:"#fff",
+          borderRadius:5,
+         }}
+         onClick={()=>handleShow(index) }>
+        <i className="ri-delete-bin-line"></i>
+      </button>  
 
 
         </div>
@@ -189,10 +213,25 @@ const updateStudent=(e)=>{
     </tr>
         ))
 }
-  
-  </tbody>
 
+  </tbody>
 </table>
+
+
+<Modal   size="sm" show={openModels} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure want to delete?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={studentdelete}>
+         yes 
+          </Button>
+          <Button variant="danger" onClick={handleClose}>
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
          <div  style={{ 
              position:'fixed',
