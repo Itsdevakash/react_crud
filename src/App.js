@@ -107,7 +107,7 @@ const updateStudent=(e)=>{
 const handleClose = () => setopenModels(null);
 const handleShow = (index) => {
   setShow(index); 
-  setopenModels(index)
+  setopenModels(index+1)
 
 }
  return(
@@ -218,7 +218,7 @@ const handleShow = (index) => {
 </table>
 
 
-<Modal   size="sm" show={0} onHide={handleClose}>
+<Modal   size="sm" show={openModels} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
