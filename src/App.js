@@ -107,7 +107,7 @@ const updateStudent=(e)=>{
 const handleClose = () => setopenModels(null);
 const handleShow = (index) => {
   setShow(index); 
-  setopenModels(index+1)
+  setopenModels(index)
 
 }
  return(
