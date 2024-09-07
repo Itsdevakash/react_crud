@@ -218,7 +218,7 @@ const handleShow = (index) => {
 </table>
 
 
-<Modal   size="sm" show={openModels} onHide={handleClose}>
+<Modal   size="sm" show={0} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
